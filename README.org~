@@ -1,0 +1,467 @@
+#+startup: overview
+#+title: Vim
+
+* Vim
+  :PROPERTIES:
+  :CUSTOM_ID: vim
+  :END:
+
+Daftar Isi
+
+** Basic Vim
+   :PROPERTIES:
+   :CUSTOM_ID: basic-vim
+   :END:
+
+- Edit File/Buat File Baru
+
+#+BEGIN_EXAMPLE
+    vim filename.ext
+#+END_EXAMPLE
+
+- - Mode Vim :: 
+
+    - Insert: ketik i
+    - Normal: esc
+
+- /Command/
+
+| /Command/                                   | /Syntax/                                                |
+|---------------------------------------------+---------------------------------------------------------|
+| save                                        | #+BEGIN_QUOTE                                           |
+|                                             |   :w                                                    |
+|                                             | #+END_QUOTE                                             |
+| save dan quit                               | #+BEGIN_QUOTE                                           |
+|                                             |   :wq                                                   |
+|                                             | #+END_QUOTE                                             |
+| quit                                        | #+BEGIN_QUOTE                                           |
+|                                             |   :q                                                    |
+|                                             | #+END_QUOTE                                             |
+| quit tanpa buffer                           | #+BEGIN_QUOTE                                           |
+|                                             |   :q!                                                   |
+|                                             | #+END_QUOTE                                             |
+| pindah ke baris (awal)                      | #+BEGIN_QUOTE                                           |
+|                                             |   0                                                     |
+|                                             | #+END_QUOTE                                             |
+| running Python di Vim                       | #+BEGIN_QUOTE                                           |
+|                                             |   :w !python3                                           |
+|                                             | #+END_QUOTE                                             |
+| set current directory                       | #+BEGIN_QUOTE                                           |
+|                                             |   cd                                                    |
+|                                             | #+END_QUOTE                                             |
+| memunculkan nomor baris                     | #+BEGIN_QUOTE                                           |
+|                                             |   :set number                                           |
+|                                             | #+END_QUOTE                                             |
+| delete line dari line-x ke line-y           | #+BEGIN_QUOTE                                           |
+|                                             |   :nomorawal, nomorakhird (contoh = :4,20d)             |
+|                                             | #+END_QUOTE                                             |
+| copy line-x sd line-y dan paste di line-z   | #+BEGIN_QUOTE                                           |
+|                                             |   :noAwal, noAkhir, paste in line-z (contoh 20,30t50)   |
+|                                             | #+END_QUOTE                                             |
+| move line                                   | #+BEGIN_QUOTE                                           |
+|                                             |   using delete (dd), kemudian tekan p di line baru      |
+|                                             | #+END_QUOTE                                             |
+| move cursor satu kata ke depan              | #+BEGIN_QUOTE                                           |
+|                                             |   w                                                     |
+|                                             | #+END_QUOTE                                             |
+| move cursor satu kata ke belakang           | #+BEGIN_QUOTE                                           |
+|                                             |   b                                                     |
+|                                             | #+END_QUOTE                                             |
+| indent line dari line-x ke line-y           | #+BEGIN_QUOTE                                           |
+|                                             |   :nomorawal, nomorakhir> (controh = :4,20>)            |
+|                                             | #+END_QUOTE                                             |
+| memperbanyak character sebanyak n kali      | #+BEGIN_QUOTE                                           |
+|                                             |   (Insert mode) - (enter) Esc (enter) 90. (enter)       |
+|                                             | #+END_QUOTE                                             |
+| wrapping column sebanyak 90 characters      | #+BEGIN_QUOTE                                           |
+|                                             |   :set textwidth=90                                     |
+|                                             | #+END_QUOTE                                             |
+| format paragraf (text width)                | #+BEGIN_QUOTE                                           |
+|                                             |   gqip                                                  |
+|                                             | #+END_QUOTE                                             |
+| buka file di tab yang baru                  | #+BEGIN_QUOTE                                           |
+|                                             |   t                                                     |
+|                                             | #+END_QUOTE                                             |
+| delete semua contents                       | #+BEGIN_QUOTE                                           |
+|                                             |   gg + dG                                               |
+|                                             | #+END_QUOTE                                             |
+| kopi semua line                             | #+BEGIN_QUOTE                                           |
+|                                             |   gg + "*y + G                                          |
+|                                             | #+END_QUOTE                                             |
+| page down                                   | #+BEGIN_QUOTE                                           |
+|                                             |   CTRL + f                                              |
+|                                             | #+END_QUOTE                                             |
+| page up                                     | #+BEGIN_QUOTE                                           |
+|                                             |   CTRL + b                                              |
+|                                             | #+END_QUOTE                                             |
+
+*Referensi*
+
+- [[https://www.vim.org/about.php][about: vim]]
+- [[https://linuxhint.com/vim_basics_tutorial/][linuxhint: vim basics
+  tutorial]]
+- [[https://thefrugalcomputerguy.com/linux/seriespg.php?ser=10002][thefrugalcomputerguy:
+  Vim]]
+
+** Vimrc
+   :PROPERTIES:
+   :CUSTOM_ID: vimrc
+   :END:
+
+Vimrc adalah sebuah file yang berfungsi untuk konfigurasi Vim. Misalnya
+untuk mengatur plugin dan tampilan editor.
+
+Lokasinya berbeda tergantung sistem operasi dan Terminal yang digunakan.
+
+*Windows*
+
+#+BEGIN_EXAMPLE
+    C:\Users\username\.vim\.vimrc
+#+END_EXAMPLE
+
+*Git Bash*
+
+#+BEGIN_EXAMPLE
+    C:\Program Files\Git\etc\vimrc
+#+END_EXAMPLE
+
+Ada hal yang aneh yang saya belum pahami apabila menggunakan Vim di Git
+Bash. Sepertinya git bash menggunakan konfigurasi vimrc di kedua lokasi
+di atas secara bersamaan. Saat ini, plugin diinstall di
+=C:\Users\username\.vim\.vimrc=. Sedangkan konfigurasi lainnya, misalnya
+pengaturan /line number/ dilakukan di =C:\Program Files\Git\etc\vimrc=.
+
+Berikut ini adalah isi vimrc yang saya gunakan:
+
+*.vimrc*
+
+:
+
+#+BEGIN_EXAMPLE
+    set shell=/bin/bash
+    packloadall
+    syntax on
+
+    let g:livepreview_previewer = 'mupdf'
+
+    let g:netrw_keepdir=0
+#+END_EXAMPLE
+
+*vimrc*
+
+#+BEGIN_EXAMPLE
+    set number
+    set tw=80
+#+END_EXAMPLE
+
+** Install Vim Plugin
+   :PROPERTIES:
+   :CUSTOM_ID: install-vim-plugin
+   :END:
+
+Install vim plugin tanpa pathogen, vundle, vim-plug, dll di Vim versi 8
+ke atas.
+
+- add packloadall ke .vimrc (buat file ini jika belum tersedia)
+
+#+BEGIN_EXAMPLE
+    set shell=/bin/bash
+    packloadall
+    syntax on
+#+END_EXAMPLE
+
+- buat sebuah direktori ~/.vim/pack/plugins/start
+
+#+BEGIN_EXAMPLE
+    mkdir -p ~/.vim/pack/plugins/start
+#+END_EXAMPLE
+
+- Simpan file plugin di folder =start=
+
+  - Download dan simpan secara manual
+  - clone repositori repo
+
+Contoh syntax:
+
+#+BEGIN_EXAMPLE
+    git clone https://github.com/repo ~/.vim/pack/plugins/start/repo
+#+END_EXAMPLE
+
+Syntax tersebut artinya adalah clone sebuah direktori dan simpan file
+tersebut di folder =start=.
+
+*Referensi*
+
+- [[https://www.youtube.com/watch?v=XIxsD7l4zww)][Youtube AJ ONeal: How
+  to install any Vim plugin with Vim 8+ Packages]]
+
+** Plugin: Nerdree
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-nerdree
+   :END:
+
+Nerdtree adalah sebuah /explorer/ untuk /browsing files/. Nerdtree
+memiliki fungsi yang sama dengan Netrw. Contoh tampilan Nerdtree adalah:
+
+[[file:images/nerdtree.png]]
+
+Install di Vim 8+ adalah:
+
+#+BEGIN_EXAMPLE
+    git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/plugins/start/nerdtree
+#+END_EXAMPLE
+
+/Basic commands/-nya adalah:
+
+- open Nerdtree= =:NERDTree=
+- close Nerdtree= =:NERDTreeClose=
+- menu= =m=
+- set /working directory/ pada /node/ yang dipilih= =cd=
+
+*Referensi*
+
+- [[https://github.com/preservim/nerdtree][github preservim/nerdtree]]
+- [[https://catonmat.net/vim-plugins-nerdtree-vim][A vim plugin you
+  should know]]
+
+** Plugin: Latex Live Preview
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-latex-live-preview
+   :END:
+
+Plugin latex live preview berfungsi untuk menampilkan preview dari
+dokumen latex.
+
+Cara install-nya adalah:
+
+- download plugin dari
+  [[https://www.vim.org/scripts/script.php?script_id=4524][website ini]]
+- simpan plugin di folder start: =~/.vim/pack/plugins/start=
+
+Selanjutnya, untuk preview dokumen dibutuhkan pdf reader, misalnya
+menggunakan =mupdf=. /Software/ tersebut dapat didownload dari
+[[https://wiki.ubuntuusers.de/MuPDF/][download mupdf]] . Install di
+ubuntu bisa mengikuti langkah berikut:
+
+#+BEGIN_EXAMPLE
+    sudo apt-get install mupdf
+#+END_EXAMPLE
+
+Add /script/ berikut ke ~/.vimrc
+
+#+BEGIN_EXAMPLE
+    let g:livepreview_previewer = 'mupdf'
+#+END_EXAMPLE
+
+Selanjutnya file tex dapat diedit dan ditampilkan /preview/ hasil
+/compile/ dengan cara:
+
+#+BEGIN_EXAMPLE
+    vim filename.tex
+#+END_EXAMPLE
+
+#+BEGIN_EXAMPLE
+    preview: LLPStartPreview
+#+END_EXAMPLE
+
+*Referensi*
+
+- [[https://www.topbug.net/blog/2013/06/13/live-preview-of-latex-in-vim/][Live
+  preview of latex in Vim]]
+
+** Plugin: Netrw
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-netrw
+   :END:
+
+Netrw adalah sebuah plugin vim yang berfungsi untuk /browsing/ file.
+Fungsi ini mirip seperti File Explorer.
+
+Netrw dapat digunakan dengan cara membuka terminal di direktori yang
+dituju, kemudian vim. Selanjutnya tekan command= :Ex. Apabila telah
+/browsing/ pada direktori tertentu, kemudian hendak keluar dari Netrw,
+maka /working direktory/ akan tetap pada direktori awal. Dikarenakan
+saya ingin ketika telah /browsing/, /working directory/-nya adalah
+direktori terakhir, maka diperlukan /script/ tambahan di ~./.vimrc
+sebagai berikut:
+
+#+BEGIN_EXAMPLE
+    let g:netrw_keepdir=0
+#+END_EXAMPLE
+
+Selanjutnya dengan command= :sh, terminal akan dijalankan pada direktori
+terakhir.
+
+*Referensi*
+
+- [[https://stackoverflow.com/questions/15469098/update-current-working-directory-after-vim-netrw-exit][Stackoverflow:
+  update current working directory after vim netrw exit]]
+
+** Plugin: Snippets
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-snippets
+   :END:
+
+*Install*
+
+#+BEGIN_EXAMPLE
+    git clone https://github.com/SirVer/ultisnips.git  ~/.vim/pack/plugins/start/ultisnips
+#+END_EXAMPLE
+
+Tambahkan line berikut ke ~/.vimrc
+
+#+BEGIN_EXAMPLE
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+    let g:UltiSnipsEditSplit="vertical"
+#+END_EXAMPLE
+
+*Edit Snippets*
+
+- - Cara 1 : :: 
+
+    - ketik /command/ = :UltiSnipsEdit
+
+- - Cara 2 : :: 
+
+    - buka ~/.vim/UltiSnips/tex.snippets
+
+- syntax snippets:
+
+#+BEGIN_EXAMPLE
+    snippet keyword "description" option
+    content
+    endsnippet
+#+END_EXAMPLE
+
+Contoh:
+
+#+BEGIN_EXAMPLE
+    snippet eq "equation" b
+    \begin{equation}
+
+    \label{eq:}
+    \end{equation}
+    endsnippet
+#+END_EXAMPLE
+
+*Referensi*
+
+- [[https://www.sirver.net/blog/2012/01/08/second-episode-of-ultisnips-screencast/][UltiSnips
+  Screencast Episode 2]]
+- [[https://yufanlu.net/2016/10/30/ultisnips/][Productivity Booster:
+  UltiSnips]]
+
+** Plugin: Lightline
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-lightline
+   :END:
+
+Lightline berfungsi untuk memberikan status atau mode masukan untuk Vim.
+Misalnya menunjukkan status NORMAL atau INSERT.
+
+- Github repository: [[https://github.com/itchyny/lightline.vim][di
+  sini]]
+- Install:
+
+#+BEGIN_EXAMPLE
+    git clone https://github.com/itchyny/lightline.vim ~/.vim/pack/plugins/start/lightline
+#+END_EXAMPLE
+
+** Plugin: Tmux
+   :PROPERTIES:
+   :CUSTOM_ID: plugin-tmux
+   :END:
+
+Tmux adalah terminal multiplexer.
+
+*Install Tmux di Git Bash Windows*
+
+- Install [[https://www.msys2.org/][msys2 package]] dan jalankan bash
+  shell
+- Install Tmux dengan /command/: =pacman -S tmux=
+- Go to direktori msys2, misalnya di =C:\msys64\usr\bin=
+- Kopi tmux.exe dan msys-event-2-1-7.dll ke direktori Git, misalnya:
+  =C:\Program Files\Git\usr\bin=
+- Buka git bash, dan ketik =tmux= untuk memakai tmux
+
+*Basic Syntax*
+
+/Syntax/ untuk mengatur sesi.
+
+| Task                      | Command                 |
+|---------------------------+-------------------------|
+| membuat sesi dan attach   | #+BEGIN_QUOTE           |
+|                           |   $ tmux                |
+|                           | #+END_QUOTE             |
+| daftar sesi               | #+BEGIN_QUOTE           |
+|                           |   $ tmux ls             |
+|                           | #+END_QUOTE             |
+| attach                    | #+BEGIN_QUOTE           |
+|                           |   $ tmux attach         |
+|                           | #+END_QUOTE             |
+| kill sesi                 | #+BEGIN_QUOTE           |
+|                           |   $ tmux kill-session   |
+|                           | #+END_QUOTE             |
+
+/Syntax/ di dalam tmux
+
+| Task                               | Command                |
+|------------------------------------+------------------------|
+| berpindah antar panel              | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + arrow   |
+|                                    | #+END_QUOTE            |
+| membuat shell terminal yang baru   | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + C       |
+|                                    | #+END_QUOTE            |
+| berpindah antar shell terminal     | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + N       |
+|                                    | #+END_QUOTE            |
+| berpindah ke shell berikutnya      | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + n       |
+|                                    | #+END_QUOTE            |
+| berpindah ke shell sebelumnya      | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + p       |
+|                                    | #+END_QUOTE            |
+| close panel                        | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + x       |
+|                                    | #+END_QUOTE            |
+| split windows secara horizontal    | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + "       |
+|                                    | #+END_QUOTE            |
+| split windows secara vertikal      | #+BEGIN_QUOTE          |
+|                                    |   $ CTRL + B + %       |
+|                                    | #+END_QUOTE            |
+
+** Vim di WSL
+   :PROPERTIES:
+   :CUSTOM_ID: vim-di-wsl
+   :END:
+
+[[https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux][WSL]]
+adalah /windows subsystem for linux/. Secara sederhana, ini adalah
+terminal ubuntu yang tersedia di Windows.
+
+Untuk menjalankan bisa dengan membuka Start kemudian pilih ubuntu. Cara
+lain adalah dengan mengetikkan `command`:
+
+#+BEGIN_EXAMPLE
+    WSL
+#+END_EXAMPLE
+
+Di dalam Terminal ubuntu ini, Vim editor tersedia. Bisa dibuka dengan
+/command/:
+
+#+BEGIN_EXAMPLE
+    vim .
+#+END_EXAMPLE
+
+Selanjutnya, vim bisa dicustom dengan menginstall plugin. Beruntung
+konfigurasi plugin bisa dikopi dari konfigurasi orang lain. Misalnya
+dari [[https://github.com/amix/vimrc][amix github]]
+
+#+BEGIN_EXAMPLE
+    git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+    sh ~/.vim_runtime/install_awesome_vimrc.sh
+#+END_EXAMPLE
